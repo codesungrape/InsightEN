@@ -1,0 +1,9 @@
+# Python virtual environments
+venv/
+
+# Python cache files
+__pycache__/
+
+# Optional: MacOS, VSCode, etc.
+.DS_Store
+.vscode/
