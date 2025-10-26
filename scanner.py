@@ -2,34 +2,35 @@ from finvizfinance.screener.overview import Overview
 import pandas as pd
 
 
-def find_premarket_movers() -> list[str]:
+def find_premarket_movers(limit: int = 40) -> list[str]:
     """
-    Scans for stocks with high relative volume and volatility to identify potential day trading opportunities. 
-    Returns:
-        list[str]: A list of stock ticker symbols that match the criteria.
-                    Returns an empty list if none are found or an error occurs. 
-    """
+    Scans for stocks that are "in-play" based on price, volume, and volatility.
 
-    # UPDATE: I Want it to check for the highest movers and above 3$
+    Args:
+        limit (int): The maximum number of tickers to return. Defaults to 40.
+
+    Returns:
+        list[str]: A sorted list of stock ticker symbols (highest movers first).
+    """
+    # Define filters to narrow down thousands of stocks to a manageable few. 
+    # Using high "Relative Volume" is a classic way to find stocks with unsual interest from traders
+    filters_dict = {
+        'Price': 'Over $5', 
+        'Relative Volume': 'Over 2', 
+        'Volatility': 'Week - Over 10%'
+        # Optional: Add more specific filters here if you want
+        # 'Sector': 'Technology',
+    }
 
     try:
         
         # The Overview class handles screening for the 'overview' page on Finviz
         stock_screener = Overview()
 
-        # Define filters to narrow down thousands of stocks to a manageable few. 
-        # Using high "Relative Volume" is a classic way to find stocks with unsual interest from traders
-        filters_dict = {
-            'Price': 'Over $5', 
-            'Relative Volume': 'Over 2', 
-            'Volatility': 'Week - Over 10%'
-        }
-
         stock_screener.set_filter(filters_dict=filters_dict)
 
         # Make the call to finviz library to perform the scan
         # The 'order' parameter tells Finviz how to sort the results.
-        # 'change' sorts by the percentage change for the day.
         # Prepending '-' makes it sort in descending order (highest first).
         results_df = stock_screener.screener_view(order='Change')
         
@@ -40,9 +41,11 @@ def find_premarket_movers() -> list[str]:
         
         # Extract the 'Ticker' column and convert it to a simple Python list. 
         tickers = results_df['Ticker'].tolist()
+
+        # Reverse the list so highest gainers are first
         tickers.reverse()
 
-        return tickers
+        return tickers[:limit]
     
     except Exception as e:
         # A simple print for now, but in produc tion use a structured logger
