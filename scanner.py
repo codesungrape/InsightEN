@@ -28,7 +28,10 @@ def find_premarket_movers() -> list[str]:
         stock_screener.set_filter(filters_dict=filters_dict)
 
         # Make the call to finviz library to perform the scan
-        results_df = stock_screener.screener_view()
+        # The 'order' parameter tells Finviz how to sort the results.
+        # 'change' sorts by the percentage change for the day.
+        # Prepending '-' makes it sort in descending order (highest first).
+        results_df = stock_screener.screener_view(order='Change')
         
         # Handle edge case gracefully
         if results_df.empty:
@@ -37,7 +40,8 @@ def find_premarket_movers() -> list[str]:
         
         # Extract the 'Ticker' column and convert it to a simple Python list. 
         tickers = results_df['Ticker'].tolist()
-        print(f"Found {len(tickers)} potential movers: {tickers}")
+        tickers.reverse()
+
         return tickers
     
     except Exception as e:
