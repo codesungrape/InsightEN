@@ -28,7 +28,7 @@ def test_find_movers_successfully(mocker):
     tickers = find_premarket_movers()
 
     # Assert: Check if the result is what we expect
-    assert tickers == ['AAPL', 'TSLA', 'NVDA']
+    assert tickers == ['NVDA', 'TSLA', 'AAPL']
     assert isinstance(tickers, list)
 
 def test_find_movers_when_none_found(mocker):
