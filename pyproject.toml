@@ -5,7 +5,11 @@ description = "A financial insights tool using finvizfinance and pandas"
 requires-python = ">=3.9"
 dependencies = [
     "pandas",
-    "finvizfinance",
+    "finvizfinance"
+]
+
+[project.optional-dependencies]
+dev = [
     "pytest",
     "pytest-mock",
     "ruff",
@@ -27,8 +31,7 @@ extend-exclude = ["venv"]
 quote-style = "double"
 indent-style = "space"
 line-ending = "lf"
-ruff format .
-ruff check --fix .
+
 
 [tool.pytest.ini_options]
 # Configure pytest options (optional)
