@@ -1,0 +1,37 @@
+[project]
+name = "InsightEN"
+version = "0.1.0"
+description = "A financial insights tool using finvizfinance and pandas"
+requires-python = ">=3.9"
+dependencies = [
+    "pandas",
+    "finvizfinance",
+    "pytest",
+    "pytest-mock",
+    "ruff",
+    "pre-commit"
+]
+
+[tool.ruff]
+# Enable linting & auto-fix
+line-length = 88
+target-version = "py312"
+fix = true
+extend-exclude = ["venv"]
+
+# Ignore certain rules if needed (example: long lines in URLs)
+# ignore = ["E501"]
+
+[tool.ruff.format]
+# Black-compatible formatting
+quote-style = "double"
+indent-style = "space"
+line-ending = "lf"
+ruff format .
+ruff check --fix .
+
+[tool.pytest.ini_options]
+# Configure pytest options (optional)
+addopts = "-v"
+testpaths = ["tests"]
+pythonpath = ["."]
