@@ -1,5 +1,6 @@
+"""..."""
+
 from finvizfinance.screener.overview import Overview
-import pandas as pd
 
 
 def find_premarket_movers(limit: int = 40) -> list[str]:
@@ -12,18 +13,17 @@ def find_premarket_movers(limit: int = 40) -> list[str]:
     Returns:
         list[str]: A sorted list of stock ticker symbols (highest movers first).
     """
-    # Define filters to narrow down thousands of stocks to a manageable few. 
+    # Define filters to narrow down thousands of stocks to a manageable few.
     # Using high "Relative Volume" is a classic way to find stocks with unsual interest from traders
     filters_dict = {
-        'Price': 'Over $5', 
-        'Relative Volume': 'Over 2', 
-        'Volatility': 'Week - Over 10%'
+        "Price": "Over $5",
+        "Relative Volume": "Over 2",
+        "Volatility": "Week - Over 10%",
         # Optional: Add more specific filters here if you want
         # 'Sector': 'Technology',
     }
 
     try:
-        
         # The Overview class handles screening for the 'overview' page on Finviz
         stock_screener = Overview()
 
@@ -32,25 +32,24 @@ def find_premarket_movers(limit: int = 40) -> list[str]:
         # Make the call to finviz library to perform the scan
         # The 'order' parameter tells Finviz how to sort the results.
         # Prepending '-' makes it sort in descending order (highest first).
-        results_df = stock_screener.screener_view(order='Change')
-        
+        results_df = stock_screener.screener_view(order="Change")
+
         # Handle edge case gracefully
         if results_df.empty:
-
             return []
-        
-        # Extract the 'Ticker' column and convert it to a simple Python list. 
-        tickers = results_df['Ticker'].tolist()
+
+        # Extract the 'Ticker' column and convert it to a simple Python list.
+        tickers = results_df["Ticker"].tolist()
 
         # Reverse the list so highest gainers are first
         tickers.reverse()
 
         return tickers[:limit]
-    
+
     except Exception as e:
         # A simple print for now, but in produc tion use a structured logger
         print(f"An error occured during scanning: {e}")
         return []
-    
+
 
 print(find_premarket_movers())
