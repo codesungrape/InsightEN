@@ -21,9 +21,13 @@ def find_premarket_movers(limit: int = 40) -> list[str]:
     filters_dict = {
         "Price": "Over $5",
         "Relative Volume": "Over 2",
-        "Volatility": "Week - Over 10%",
+        "Change": "Up",
+        "Gap": "Up",
+        "Current Volume": "Over 1M",
         # Optional: Add more specific filters here if you want
+        # "Volatility": "Week - Over 10%", # "Show me stocks that are consistently wild and are also having a good day today."
         # 'Sector': 'Technology',
+        # "Industry": "Any"
     }
     log.debug("Using filters: %s", filters_dict)
 
