@@ -1,6 +1,7 @@
 """..."""
 
 from finvizfinance.screener.overview import Overview
+from logger_config import log
 
 
 def find_premarket_movers(limit: int = 40) -> list[str]:
@@ -13,8 +14,10 @@ def find_premarket_movers(limit: int = 40) -> list[str]:
     Returns:
         list[str]: A sorted list of stock ticker symbols (highest movers first).
     """
+
     # Define filters to narrow down thousands of stocks to a manageable few.
     # Using high "Relative Volume" is a classic way to find stocks with unsual interest from traders
+    log.info("Starting pre-market scan with a limit of %d tickers.", limit)
     filters_dict = {
         "Price": "Over $5",
         "Relative Volume": "Over 2",
@@ -22,6 +25,7 @@ def find_premarket_movers(limit: int = 40) -> list[str]:
         # Optional: Add more specific filters here if you want
         # 'Sector': 'Technology',
     }
+    log.debug("Using filters: %s", filters_dict)
 
     try:
         # The Overview class handles screening for the 'overview' page on Finviz
@@ -32,23 +36,29 @@ def find_premarket_movers(limit: int = 40) -> list[str]:
         # Make the call to finviz library to perform the scan
         # The 'order' parameter tells Finviz how to sort the results.
         # Prepending '-' makes it sort in descending order (highest first).
+        log.info("Fetching data from Finviz...")
         results_df = stock_screener.screener_view(order="Change")
 
         # Handle edge case gracefully
         if results_df.empty:
+            log.warning("No stocks matched the screening criteria.")
             return []
 
         # Extract the 'Ticker' column and convert it to a simple Python list.
         tickers = results_df["Ticker"].tolist()
+        log.info("Found %d raw tickets from Finviz", len(tickers))
 
         # Reverse the list so highest gainers are first
         tickers.reverse()
 
-        return tickers[:limit]
+        limited_tickers = tickers[:limit]
+        log.info(
+            "Returning top %d tickers out of %d.", len(limited_tickers), len(tickers)
+        )
+        return limited_tickers
 
     except Exception as e:
-        # A simple print for now, but in produc tion use a structured logger
-        print(f"An error occured during scanning: {e}")
+        log.error("An error occurred during scanning: %d", e, exc_info=True)
         return []
 
 
