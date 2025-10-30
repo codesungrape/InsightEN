@@ -1,10 +1,38 @@
 repos:
+-   repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v6.0.0 # Use the latest stable version
+    hooks:
+    -   id: check-yaml
+    -   id: end-of-file-fixer
+    -   id: trailing-whitespace
+
 -   repo: https://github.com/astral-sh/ruff-pre-commit
     # Ruff version. See https://github.com/astral-sh/ruff-pre-commit/releases
-    rev: v0.1.7
+    rev: v0.14.2
     hooks:
         # Run the linter.
         - id: ruff
           args: [--fix, --exit-non-zero-on-fix]
         # Run the formatter.
         - id: ruff-format
+
+# Custom, local hook for running tests and checking coverage
+# It will run AFTER ruff has cleaned up the code.
+-   repo: local
+    hooks:
+    -   id: pytest-cov
+        name: pytest (with coverage)
+        entry: pytest
+        args: [
+          "--cov=scanner",
+          "--cov=logger_config",
+          "--cov-report", "term-missing", # Report missing lines in the terminal
+          "--cov-fail-under=100",
+        ]
+        language: python
+        # This tells the hook which Python environment to use.
+        # 'python_venv' is a good default that often works.
+        # If your dependencies aren't found, you might need to adjust this.
+        types: [python]
+        pass_filenames: false
+        always_run: true
