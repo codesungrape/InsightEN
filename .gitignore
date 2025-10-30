@@ -4,6 +4,11 @@ venv/
 # Python cache files
 __pycache__/
 
+# coverage.py artifacts
+.coverage
+htmlcov/
+.cache/
+
 # Optional: MacOS, VSCode, etc.
 .DS_Store
 .vscode/
