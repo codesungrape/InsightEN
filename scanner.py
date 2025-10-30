@@ -9,7 +9,7 @@ def find_premarket_movers(limit: int = 40) -> list[str]:
     Scans for stocks that are "in-play" based on price, volume, and volatility.
 
     Args:
-        limit (int): The maximum number of tickers to return. Defaults to 40.
+        limit (int): The maximum number of tickers to return. DEFAULTS to 40.
 
     Returns:
         list[str]: A sorted list of stock ticker symbols (highest movers first).
@@ -25,7 +25,7 @@ def find_premarket_movers(limit: int = 40) -> list[str]:
         "Gap": "Up",
         "Current Volume": "Over 1M",
         # Optional: Add more specific filters here if you want
-        # "Volatility": "Week - Over 10%", # "Show me stocks that are consistently wild and are also having a good day today."
+        # "Volatility": "Week - Over 10%",
         # 'Sector': 'Technology',
         # "Industry": "Any"
     }
@@ -61,8 +61,10 @@ def find_premarket_movers(limit: int = 40) -> list[str]:
         )
         return limited_tickers
 
-    except Exception as e:
-        log.error("An error occurred during scanning: %d", e, exc_info=True)
+    except (ValueError, TypeError, AttributeError) as e:
+        log.error(
+            "Scanner failed with a data or configuration error: %s", e, exc_info=True
+        )
         return []
 
 
