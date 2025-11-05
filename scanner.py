@@ -7,6 +7,8 @@ from logger_config import log
 def find_premarket_movers(limit: int = 40) -> list[str]:
     """
     Scans for stocks that are "in-play" based on price, volume, and volatility.
+    Uses a DataFrame internally because that's what the library gives it.
+    The function's public contract: It promises to return a list[str] to the outside world.
 
     Args:
         limit (int): The maximum number of tickers to return. DEFAULTS to 40.
