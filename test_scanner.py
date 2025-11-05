@@ -16,6 +16,7 @@ def test_find_movers_successfully(mocker):
         "Ticker": ["AAPL", "TSLA", "NVDA"],
         "Company": ["Apple Inc.", "Tesla, Inc.", "NVIDIA Corporation"],
         "Price": [170.00, 250.00, 450.00],
+        "Change": [0.05, 0.02, 0.08],
     }
     mock_dataframe = pd.DataFrame(mock_data)
 
@@ -30,8 +31,9 @@ def test_find_movers_successfully(mocker):
     # Act: Call the function we are testing
     tickers = find_premarket_movers()
 
-    # Assert: Check if the result is what we expect
-    assert tickers == ["NVDA", "TSLA", "AAPL"]
+    # Assert: The list should now be sorted by 'Change' in descending order.
+    # Based on our mock data, the order: NVDA (0.08), AAPL (0.05), TSLA (0.02).
+    assert tickers == ["NVDA", "AAPL", "TSLA"]
     assert isinstance(tickers, list)
 
 

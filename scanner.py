@@ -16,7 +16,6 @@ def find_premarket_movers(limit: int = 40) -> list[str]:
     """
 
     # Define filters to narrow down thousands of stocks to a manageable few.
-    # Using high "Relative Volume" is a classic way to find stocks with unsual interest from traders
     log.info("Starting pre-market scan with a limit of %d tickers.", limit)
     filters_dict = {
         "Price": "Over $5",
@@ -32,15 +31,14 @@ def find_premarket_movers(limit: int = 40) -> list[str]:
     log.debug("Using filters: %s", filters_dict)
 
     try:
-        # The Overview class handles screening for the 'overview' page on Finviz
+        # Initilize screener: the Overview class handles screening for the 'overview' page on Finviz
         stock_screener = Overview()
 
         stock_screener.set_filter(filters_dict=filters_dict)
 
         # Make the call to finviz library to perform the scan
-        # The 'order' parameter tells Finviz how to sort the results.
-        # Prepending '-' makes it sort in descending order (highest first).
         log.info("Fetching data from Finviz...")
+        # Get results
         results_df = stock_screener.screener_view(order="Change")
 
         # Handle edge case gracefully
@@ -48,12 +46,12 @@ def find_premarket_movers(limit: int = 40) -> list[str]:
             log.warning("No stocks matched the screening criteria.")
             return []
 
+        # Sort manually descending by Change (%)
+        results_df = results_df.sort_values(by="Change", ascending=False)
+
         # Extract the 'Ticker' column and convert it to a simple Python list.
         tickers = results_df["Ticker"].tolist()
         log.info("Found %d raw tickets from Finviz", len(tickers))
-
-        # Reverse the list so highest gainers are first
-        tickers.reverse()
 
         limited_tickers = tickers[:limit]
         log.info(
