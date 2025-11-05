@@ -4,10 +4,6 @@ import pytest
 import pandas as pd
 from scanner import find_premarket_movers
 
-# This test checks if the 'find_premarket_movers' function behaves correctly.
-# It uses a "mock" to pretend to be the 'finvizfinance' library,
-# isolating our test, making it fast and reliable- a UNIT test?
-
 
 def test_find_movers_successfully(mocker):
     """
@@ -58,9 +54,6 @@ def test_find_movers_when_none_found(mocker):
 
     # Assert
     assert tickers == []
-
-
-#    assert isinstance(tickers, list)
 
 
 @pytest.mark.parametrize(
