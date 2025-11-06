@@ -1,0 +1,17 @@
+Metadata-Version: 2.4
+Name: InsightEN
+Version: 0.1.0
+Summary: A financial insights tool using finvizfinance and pandas
+Requires-Python: >=3.9
+Requires-Dist: pandas
+Requires-Dist: finvizfinance
+Provides-Extra: dev
+Requires-Dist: pytest; extra == "dev"
+Requires-Dist: pytest-mock; extra == "dev"
+Requires-Dist: ruff; extra == "dev"
+Requires-Dist: pre-commit; extra == "dev"
+Requires-Dist: python-dotenv; extra == "dev"
+Requires-Dist: alpha-vantage; extra == "dev"
+Requires-Dist: transformers; extra == "dev"
+Requires-Dist: torch; extra == "dev"
+Requires-Dist: textblob; extra == "dev"

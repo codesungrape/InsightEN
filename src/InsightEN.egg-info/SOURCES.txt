@@ -1,0 +1,8 @@
+README.md
+pyproject.toml
+src/InsightEN.egg-info/PKG-INFO
+src/InsightEN.egg-info/SOURCES.txt
+src/InsightEN.egg-info/dependency_links.txt
+src/InsightEN.egg-info/requires.txt
+src/InsightEN.egg-info/top_level.txt
+tests/test_scanner.py

@@ -2,7 +2,7 @@
 
 import pytest
 import pandas as pd
-from scanner import find_premarket_movers
+from src.scanner import find_premarket_movers
 
 
 def test_find_movers_successfully(mocker):
@@ -81,7 +81,7 @@ def test_find_movers_handles_exception(
         side_effect=exception_to_raise,
     )
     # Mock the logger and get a reference to our "spy button"
-    mock_log_error = mocker.patch("scanner.log.error")
+    mock_log_error = mocker.patch("src.scanner.log.error")
 
     # Act
     result = find_premarket_movers()

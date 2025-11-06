@@ -1,7 +1,7 @@
 """..."""
 
 from finvizfinance.screener.overview import Overview
-from logger_config import log
+from .logger_config import log
 
 
 def find_premarket_movers(limit: int = 40) -> list[str]:
