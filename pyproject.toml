@@ -13,7 +13,12 @@ dev = [
     "pytest",
     "pytest-mock",
     "ruff",
-    "pre-commit"
+    "pre-commit",
+    "python-dotenv", # Loads .env files
+    "alpha-vantage", # Alpha Vantage API wrapper
+    "transformers",  # Hugging Face's library for models like BERT
+    "torch",         # The deep learning framework BERT runs on
+    "textblob",      # We'll use this later to compare against FinBERT
 ]
 
 [tool.ruff]
@@ -38,3 +43,10 @@ line-ending = "lf"
 addopts = "-v"
 testpaths = ["tests"]
 pythonpath = ["."]
+
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
