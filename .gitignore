@@ -9,6 +9,12 @@ __pycache__/
 htmlcov/
 .cache/
 
+# Python packaging artifacts
+*.egg-info/
+dist/
+build/
+*.egg
+
 # Optional: MacOS, VSCode, etc.
 .DS_Store
 .vscode/
