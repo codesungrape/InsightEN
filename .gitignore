@@ -11,6 +11,8 @@ htmlcov/
 
 # Python packaging artifacts
 *.egg-info/
+**/*.egg-info/
+src/InsightEN.egg-info/
 dist/
 build/
 *.egg
