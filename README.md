@@ -37,3 +37,24 @@ This command will:
 - Automatically start a local web server at http://localhost:8000
 
 **Note:** Press Ctrl + C to stop the coverage server when you’re done.
+
+
+### ✅ Run pre-commit hooks
+**Quick reference:**
+1. ruff = the linter (checks and fixes code issues)
+2. ruff-format = the formatter (formats code style)
+
+#### Run all hooks on one file
+```
+pre-commit run --files file.py
+```
+
+#### Run specific hook on one file
+```
+pre-commit run ruff --files file.py
+```
+
+#### Run specific hook on multiple files
+```
+pre-commit run ruff-format --files file1.py file2.py
+```
