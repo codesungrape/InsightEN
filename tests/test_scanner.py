@@ -1,7 +1,8 @@
 """..."""
 
-import pytest
 import pandas as pd
+import pytest
+
 from src.scanner import find_premarket_movers
 
 
@@ -21,7 +22,7 @@ def test_find_movers_successfully(mocker):
     mock_dataframe = pd.DataFrame(mock_data)
 
     # Arrange:
-    # Create the mock object with pytest's 'mocker' to find Screener class from the library
+    # Create mock object with pytest's 'mocker' to find Screener class from the library
     # replace it's 'get_as_dataframe' method with one that just returns our fake data.
     _mock_screener_instance = mocker.patch(
         "finvizfinance.screener.overview.Overview.screener_view",
@@ -90,9 +91,11 @@ def test_find_movers_handles_exception(
     mock_log_error.assert_called_once()
 
     # Get the arguments that our "spy button" was called with.
-    # call_args is a tuple of the positional arguments. The second one is the exception object 'e'.
+    # call_args is a tuple of the positional arguments.
+    # The second one is the exception object 'e'.
     call_args, _call_kwargs = mock_log_error.call_args
     logged_exception_object = call_args[1]
 
-    # Assert that the string representation of the logged exception contains our expected text.
+    # Assert that the string representation of the logged exception
+    # contains our expected text.
     assert expected_log_message_part in str(logged_exception_object)
