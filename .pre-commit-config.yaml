@@ -25,5 +25,5 @@ repos:
         entry: ./scripts/run_tests_cov.sh
         language: system
         types: [python]
-        pass_filenames: true   # only pass changed files
-        always_run: false      # only run if Python files changed
+        pass_filenames: false
+        stages: [commit]
