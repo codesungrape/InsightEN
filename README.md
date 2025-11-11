@@ -24,10 +24,9 @@ pip install pre-commit
 pre-commit install
 ```
 
-### ✅ Run tests with coverage
-To run all tests, enforce 100% coverage, and automatically serve the HTML coverage report, execute:
+### ✅ View coverage
 ```
-./scripts/run_tests-cov.sh
+./scripts/view_coverage.sh
 ```
 
 This command will:
