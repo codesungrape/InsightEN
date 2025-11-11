@@ -5,7 +5,7 @@ description = "A financial insights tool using finvizfinance and pandas"
 requires-python = ">=3.9"
 dependencies = [
     "pandas",
-    "finvizfinance"
+    "finvizfinance",
 ]
 
 [project.optional-dependencies]
@@ -19,6 +19,7 @@ dev = [
     "transformers",  # Hugging Face's library for models like BERT
     "torch",         # The deep learning framework BERT runs on
     "textblob",      # We'll use this later to compare against FinBERT
+    "pydantic",
 ]
 
 [tool.ruff]
@@ -37,6 +38,15 @@ quote-style = "double"
 indent-style = "space"
 line-ending = "lf"
 
+[tool.ruff.lint]
+select = [
+  "E",   # Style
+  "F",   # Pyflakes (runtime errors, unused)
+  "B",   # Bugbear (common Python gotchas)
+  "UP",  # Pyupgrade (modern syntax)
+  "I",   # Import sorting (like isort)
+  "BLE"  # Blind except
+]
 
 [tool.pytest.ini_options]
 # Configure pytest options (optional)
