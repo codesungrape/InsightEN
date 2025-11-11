@@ -1,13 +1,14 @@
 #!/bin/bash
-# Script to run tests, enforce 100% coverage, and serve the HTML report.
+# Script to run tests and enforce 100% coverage for pre-commit hook
 
 echo "Running tests with coverage..."
 
 # Step 1: Run pytest with all flags and capture output
-# It will generate the HTML report and fail if coverage is < 100%.
-pytest_output=$(pytest --cov=scanner --cov=logger_config \
-     --cov-fail-under=100 \
-     --cov-report=html 2>&1)
+pytest --cov=src \
+       --cov-report=term-missing \
+       --cov-report=html \
+       --cov-fail-under=100
+
 pytest_exit_code=$? # Capture the exit code of the pytest command
 
 # Step 2: Check if the command succeeded or failed

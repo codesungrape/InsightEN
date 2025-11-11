@@ -22,17 +22,8 @@ repos:
     hooks:
     -   id: pytest-cov
         name: pytest (with coverage)
-        entry: pytest
-        args: [
-          "--cov=scanner",
-          "--cov=logger_config",
-          "--cov-report", "term-missing", # Report missing lines in the terminal
-          "--cov-fail-under=100",
-        ]
-        language: python
-        # This tells the hook which Python environment to use.
-        # 'python_venv' is a good default that often works.
-        # If your dependencies aren't found, you might need to adjust this.
+        entry: ./scripts/run_tests_cov.sh
+        language: system
         types: [python]
-        pass_filenames: false
-        always_run: true
+        pass_filenames: true   # only pass changed files
+        always_run: false      # only run if Python files changed
